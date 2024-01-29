@@ -1,7 +1,105 @@
+/* Stili di base per il body */
+body {
+    font-family: 'Arial', sans-serif; /* Usa un font pulito e moderno */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra gli elementi verticalmente */
+    justify-content: center;
+    min-height: 100vh; /* Assicura che il contenuto si estenda per l'altezza totale della viewport */
+    background-color: #f8f9fa; /* Sfondo chiaro per un look moderno */
+    margin: 0; /* Rimuove il margine predefinito */
+    padding: 20px; /* Aggiunge un po' di spazio intorno agli elementi */
+}
+
+/* Stili per il titolo dell'app */
+#app_title {
+    color: #007bff; /* Un colore blu vivace per catturare l'attenzione */
+    margin-bottom: 40px; /* Distanza dal form sottostante */
+    font-size: 2.5rem; /* Rende il titolo più grande e visibile */
+}
+
+/* Stili per il form */
 #form {
-    
-    margin: 20px;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
+    background-color: #ffffff; /* Sfondo bianco per il form */
+    padding: 20px;
+    border-radius: 10px; /* Bordi arrotondati per un look moderno */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Ombra per dare profondità */
+    width: 100%;
+    max-width: 480px; /* Larghezza massima per assicurarsi che non sia troppo largo */
+    box-sizing: border-box;
+}
+
+#input_task {
+    width: 70%; /* Larghezza dell'input rispetto al form */
+    padding: 10px; /* Più spazio interno per una migliore leggibilità */
+    margin-right: 10px; /* Distanza dal pulsante "Add" */
+    border: 1px solid #ccc; /* Bordo sottile per l'input */
+    border-radius: 5px; /* Bordi leggermente arrotondati per l'input */
+    word-wrap: break-word; /* Questa proprietà fa andare a capo le parole lunghe */
+    overflow-wrap: break-word; /* Aggiungere anche overflow-wrap per una migliore compatibilità */
+}
+
+#add_but {
+    width: 20%; /* Larghezza del pulsante rispetto al form */
+    padding: 10px; /* Altezza del pulsante per facilitare il clic */
+    background-color: #28a745; /* Colore di sfondo verde per il pulsante */
+    color: white; /* Testo bianco per il pulsante */
+    border: none; /* Nessun bordo per il pulsante */
+    border-radius: 5px; /* Bordi arrotondati per il pulsante */
+    cursor: pointer; /* Cambia il cursore in una mano quando si passa sopra il pulsante */
+}
+
+#add_but:hover {
+    background-color: #218838; /* Colore di sfondo più scuro al passaggio del mouse */
+}
+
+/* Stili per la lista di to-do */
+ul {
+    list-style-type: none; /* Rimuove i punti degli elenchi */
+    padding: 0; /* Rimuove il padding predefinito */
+    width: 100%;
+    max-width: 600px; /* Larghezza massima per la lista */
+    margin-top: 20px; /* Distanza dal form */
+}
+
+li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center; /* Assicura che il contenuto e i pulsanti siano centrati verticalmente */
+    justify-content: space-between; /* Separa il contenuto dei to-do dagli azioni */
+}
+
+.action-buttons {
+    display: flex; /* Usa flexbox per allineare i pulsanti */
+}
+
+#date_time {
+    font-size: 0.5rem; /* Riduci la dimensione del testo per l'ora e la data */
+    color: #6c757d; /* Usa un colore più scuro per l'ora e la data */
+    margin-left: 10px; /* Aggiunge spazio tra l'ora e i pulsanti */
+}
+
+#complete_but, #delete_but {
+    padding: 5px 15px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-left: 10px; /* Aggiunge spazio tra i pulsanti */
+}
+
+#complete_but {
+    background-color: #17a2b8;
+}
+
+#delete_but {
+    background-color: #dc3545;
+}
+
+#complete_but:hover, #delete_but:hover {
+    opacity: 0.8;
 }

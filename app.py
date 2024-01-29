@@ -1,6 +1,8 @@
 # Import necessary modules from Flask and Flask-SQLAlchemy
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from datetime import datetime
 
 # Initialize a Flask app
 app = Flask(__name__)
@@ -14,12 +16,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the SQLAlchemy object with the Flask app
 db = SQLAlchemy(app)
 
+migrate = Migrate(app, db)
+
 # Define a Todo model to structure the database table
 class Todo(db.Model):
     __tablename__ = 'tasks'  # Define the table name 'tasks'
     id = db.Column(db.Integer, primary_key=True)  # An integer column to serve as the primary key
     content = db.Column(db.String(200), nullable=False)  # A string column for the to-do item content
     completed = db.Column(db.Boolean, default=False)  # A boolean column to indicate if a task is completed
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Todo %r>' % self.id  # Representation of the Todo object
@@ -27,8 +32,9 @@ class Todo(db.Model):
 # Define the index route to show all to-do items
 @app.route('/')
 def index():
-    todos = Todo.query.all()  # Retrieve all Todo items from the database
-    return render_template('index.html', todos=todos)  # Render the 'index.html' template with the todos
+    todos = Todo.query.order_by(Todo.id.desc()).all()  # Retrieve all Todo items from the database
+    
+    return render_template('index.html', todos=todos) # Render the 'index.html' template with the todos
 
 # Define the route to add a new to-do item
 @app.route('/add', methods=['POST'])
