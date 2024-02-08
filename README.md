@@ -26,17 +26,9 @@ This project is a simple web-based to-do list application built with Flask, a Py
 - Created a CSS file and linked it to the HTML template.
 - Styled basic elements like the to-do item addition form.
 
-## Remaining Steps
-
 ### User Interface Enhancement
 - Add more CSS styles to improve the user interface's look and feel.
 - Make the interface more intuitive and responsive.
-
-### Data Validation Implementation
-- Add server-side checks to validate user input.
-
-### (Optional) User Authentication Implementation
-- Add a user authentication and registration system to support multiple users.
 
 ### Comprehensive Application Testing
 - Perform thorough testing to ensure all functionalities are working as expected.
