@@ -2,8 +2,6 @@
 
 This project is a simple web-based to-do list application built with Flask, a Python web framework. It allows users to add, complete, and delete tasks, and is backed by a SQLite database.
 
-## Completed Steps
-
 ### Development Environment and Flask Setup
 - Set up the development environment and installed Flask.
 
