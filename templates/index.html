@@ -1,52 +1,96 @@
 <!DOCTYPE html>
-<!-- Define the document type as HTML5 -->
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <!-- Ensure proper rendering and touch zooming on mobile devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to the external CSS file for styling -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='reset')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <!-- Set the title of the web page -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Include the CSS files for styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='reset')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <title>To-Do List</title>
-</head>
-<body>
-    <!-- Titolo dell'applicazione -->
+  </head>
+  <body>
     <h1 id="app_title">My To-Do List</h1>
 
-    <!-- Form for adding a new to-do item -->
+    <!-- Form for adding new tasks. When submitted, it sends a POST request to the '/add' route -->
     <form id="form" action="/add" method="post">
-        <!-- Input field for the new task -->
-        <input id="input_task" type="text" name="todo" maxlength="30" placeholder="Enter a new task">
-        <!-- Submit button for the form -->
-        <input id="add_but" type="submit" value="Add">
+      <!-- Input field for the new task. 'maxlength' attribute limits the input length -->
+      <input id="input_task" type="text" name="todo" maxlength="20" placeholder="Enter a new task" />
+      <!-- Submit button for the form -->
+      <input id="add_but" type="submit" value="Add" />
     </form>
-    <!-- Unordered list to display the to-do items -->
-    <ul>
-        <!-- Loop through each to-do item passed to the template -->
-        {% for todo in todos %}
-            <li>
-                <!-- Check if the to-do item is completed -->
-                {% if todo.completed %}
-                    <!-- If completed, strike through the content -->
-                    <s>{{ todo.content }}</s>
-                {% else %}
-                    <!-- If not completed, display the content normally -->
-                    {{ todo.content }}
-                {% endif %}
-                
-                <div class="action_but">
-                <span id="date_time">{{ todo.date_created.strftime('%d-%m-%Y %H:%M') }}</span>
-                <!-- Link to mark the to-do item as completed -->
-                <a id="complete_but" href="{{ url_for('complete_todo', id=todo.id) }}">Complete</a>
-                <!-- Link to delete the to-do item -->
-                <a id="delete_but" href="{{ url_for('delete_todo', id=todo.id) }}">Delete</a>
-                </div>
-                
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
 
+    <!-- List of tasks -->
+    <ul>
+      <!-- Loop through each task in the 'todos' list -->
+      {% for todo in todos %}
+      <li>
+        <!-- If the task is completed, display it with a strikethrough -->
+        {% if todo.completed %}
+        <s>{{ todo.content }}</s>
+        {% else %}
+        <!-- If the task is not completed, display it normally -->
+        {{ todo.content }}
+        {% endif %}
+
+        <!-- Task actions: display creation date, and links to complete or delete the task -->
+        <div class="action_but">
+          <span id="date_time">{{ todo.date_created.strftime('%d-%m-%Y %H:%M') }}</span>
+          <!-- 'Complete' link sends a GET request to the 'complete_todo' route with the task's id -->
+          <a id="complete_but" href="{{ url_for('complete_todo', id=todo.id) }}">Complete</a>
+          <!-- 'Delete' link sends a GET request to the 'delete_todo' route with the task's id -->
+          <a id="delete_but" href="{{ url_for('delete_todo', id=todo.id) }}">Delete</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <!-- Completed and deleted tasks lists -->
+    <div id="lists-container">
+      <!-- 'Completed Tasks' list -->
+      <div>
+        <h2 id="completed-title">Completed Tasks</h2>
+        <ul id="completed">
+          <!-- Loop through each task in the 'completed' list -->
+          {% for task in completed %}
+          <li>
+            <!-- Display the task content and the completion date -->
+            {{ task.content }}
+            <span>{{ task.date_completed.strftime('%d-%m-%Y %H:%M') }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- 'Deleted Tasks' list -->
+      <div>
+        <h2 id="deleted-title">Deleted Tasks</h2>
+        <ul id="deleted">
+          <!-- Loop through each task in the 'deleted' list -->
+          {% for task in deleted %}
+          <li>
+            <!-- Display the task content and the deletion date -->
+            {{ task.content }}
+            <span>{{ task.date_deleted.strftime('%d-%m-%Y %H:%M') }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- JavaScript to toggle visibility of completed and deleted tasks lists when their titles are clicked -->
+    <script>
+      window.onload = function () {
+        document.getElementById("completed-title").onclick = function () {
+          var completed = document.getElementById("completed");
+          completed.style.display =
+            completed.style.display == "none" ? "block" : "none";
+        };
+        document.getElementById("deleted-title").onclick = function () {
+          var deleted = document.getElementById("deleted");
+          deleted.style.display =
+            deleted.style.display == "none" ? "block" : "none";
+        };
+      };
+    </script>
+  </body>
+</html>
